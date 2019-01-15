@@ -1,6 +1,6 @@
 # Programming Test - Pattern Recognition
 
-##Pattern Recognition
+## Pattern Recognition
 
 Computer vision involves analyzing patterns in visual images and reconstructing the real world objects that
 produced them. The process in often broken up into two phases: feature detection and pattern recognition.
@@ -9,7 +9,7 @@ discovering patterns in the features. We will investigate a particularly clean p
 involving points and line segments. This kind of pattern recognition arises in many other applications, for
 example statistical data analysis.
 
-##Problem to solve
+## Problem to solve
 
 Given a set of P feature points in the bidimensional plane, determine every line that contains at least N or
 more COLLINEAR points.
@@ -60,14 +60,14 @@ Request: `GET /lines/2`
 - Remove all points from the space
   `DELETE /space`
 
-##Additional rules
+## Additional rules
 
 - All code should be under version control, on a publicly accessible git repository (e.g., a GitHub
   repository);
 - Unless specified in the instructions above, the API should consume and produce JSON;
 - The languages you can choose to implement are: Java, Scala, Kotlin and JavaScript
 
-##Suggestions
+## Suggestions
 
 - Properly naming variables and documenting the code can help us understand your solution;
 - Validating all inputs to your program will help your solution pass our test cases;
