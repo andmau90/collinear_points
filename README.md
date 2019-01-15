@@ -1,3 +1,10 @@
+# Steps
+
+- clone the repository
+- run `npm install`
+- run `node server.js`
+- open the postman workspace to test the REST api [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/73543843c3d2505eb636)
+
 # Programming Test - Pattern Recognition
 
 ## Pattern Recognition
