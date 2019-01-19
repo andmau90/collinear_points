@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var collinears = require("./collinears");
+var collinear = require("./collinear");
 var app = express();
 
 app.use(bodyParser.json());
@@ -11,28 +11,28 @@ app.use(
 );
 
 app.post("/point", function(req, res) {
-    res.json(collinears.addToSpace(req.body));
+    res.json(collinear.addToSpace(req.body));
 });
 
 app.post("/points", function(req, res) {
-    res.json(collinears.addsToSpace(req.body));
+    res.json(collinear.addsToSpace(req.body));
 });
 
 app.get("/space", function(req, res) {
-    res.json(collinears.getSpace());
+    res.json(collinear.getSpace());
 });
 
 app.use("/randomize/:number", function(req, res) {
-    res.json(collinears.generatePoints(req.params.number));
+    res.json(collinear.generatePoints(req.params.number));
 });
 
 app.use("/lines/:number", function(req, res) {
-    res.json(collinears.getLines(req.params.number));
+    res.json(collinear.getLines(req.params.number));
 });
 
 app.delete("/space", function(req, res) {
-    collinears.clearSpace();
-    res.json(collinears.getSpace());
+    collinear.clearSpace();
+    res.json(collinear.getSpace());
 });
 
 const hostname = "127.0.0.1";

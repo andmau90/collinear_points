@@ -9,18 +9,18 @@ exports.clearSpace = () => {
 exports.getSpace = () => points;
 
 randomPoint = () => {
-    const a = Math.random() * 2 * Math.PI;
-    const r = 100 * Math.sqrt(Math.random());
-    const x = r * Math.cos(a);
-    const y = r * Math.sin(a);
+    const x = Math.random() * 1000;
+    const y = Math.random() * 1000;
     return { x: x.toFixed(0), y: y.toFixed(0) };
 };
 
 exports.generatePoints = number => {
+    var randomPoints = [];
     for (var i = 0; i < number; i++) {
-        points.push(randomPoint());
+        randomPoints.push(randomPoint());
     }
-    return points;
+    points.concat(randomPoints);
+    return randomPoints;
 };
 
 isNumber = number => typeof number === "number";
@@ -48,34 +48,30 @@ exports.addsToSpace = points => {
     return messages;
 };
 
-slope = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
-    if (x2 != x1) {
-        return y2 - y1 / x2 - x1;
-    }
-    return "oo";
+arePointsEqual = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
+    return x1 === x2 && y1 === y2;
 };
 
-/**
- * return all available segments with slope
- */
-getCollinearsSegments = minLength => {
+areDetEqualToZero = ({ x: x1, y: y1 }, { x: x2, y: y2 }, { x: x3, y: y3 }) => {
+    return x1 * y2 + y1 * x3 + x2 * y3 - (x3 * y2 + y3 * x1 + x2 * y1) === 0;
+};
+
+getLinesOfCollinearPoints = minLength => {
     const lines = [];
     for (let i = 0; i < points.length - 1; i++) {
-        let pointA = points[i];
         for (let j = i + 1; j < points.length; j++) {
-            let pointB = points[j];
-            let line = [pointA, pointB];
-            for (let x = j + 1; x < points.length; x++) {
-                let pointC = points[x];
-                if (
-                    slope(pointA, pointB) === slope(pointB, pointC) &&
-                    slope(pointB, pointC) === slope(pointC, pointA)
-                ) {
-                    line.push(pointC);
+            if (!arePointsEqual(points[i], points[j])) {
+                let line = [points[i], points[j]];
+                for (let x = j + 1; x < points.length; x++) {
+                    if (!arePointsEqual(points[i], points[x])) {
+                        if (areDetEqualToZero(points[i], points[j], points[x])) {
+                            line.push(points[x]);
+                        }
+                    }
                 }
-            }
-            if (line.length >= minLength) {
-                lines.push(line);
+                if (line.length >= minLength) {
+                    lines.push(line);
+                }
             }
         }
     }
@@ -83,7 +79,7 @@ getCollinearsSegments = minLength => {
 };
 
 exports.getLines = n => {
-    const lines = getCollinearsSegments(n);
+    const lines = getLinesOfCollinearPoints(n);
     lines.sort((a, b) => b.length - a.length);
     return lines;
 };
